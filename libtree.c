@@ -104,8 +104,9 @@ if (S_ISDIR(finfo.st.st_mode)) {
 }
   /* TODO: print indentation */
 for (int i = 0; i < depth; i++) {
-    printf(" ");
+    printf("  ");
 }
+    printf("%s\n", finfo.path);
   /* TODO: print the path info */
 
   /* TODO: continue ONLY if path is a directory */
@@ -159,38 +160,38 @@ print_path_info(struct fileinfo finfo)
 {
   char sep = '[';
   if (opts.perms) {
-    if (printf("%c%s", sep, mode_string(finfo.st.st_mode)) < 0) goto exit; /* TODO */
+    if (printf("%c%s\n", sep, mode_string(finfo.st.st_mode)) < 0) goto exit; /* TODO */
     sep = ' ';
   }
   if (opts.user) {
       struct passwd *pwd = getpwuid(finfo.st.st_uid);
       if (pwd != NULL) {
-	  if (printf("%c%s", sep, pwd->pw_name) <0) goto exit;
+	  if (printf("%c%s\n", sep, pwd->pw_name) <0) goto exit;
       } else {
-	  if (printf("%c%d", sep, finfo.st.st_uid) <0) goto exit;
+	  if (printf("%c%d\n", sep, finfo.st.st_uid) <0) goto exit;
       }
       sep = ' ';
   }
      if (opts.group) {
    	struct group *grp = getgrgid(finfo.st.st_gid);
 	if (grp != NULL) {
-	    if (printf("%c%s", sep, grp->gr_name) < 0) goto exit;
+	    if (printf("%c%s\n", sep, grp->gr_name) < 0) goto exit;
 	} else {
-	    if (printf("%c%d", sep, finfo.st.st_gid) < 0) goto exit;
+	    if (printf("%c%d\n", sep, finfo.st.st_gid) < 0) goto exit;
 	}
 	sep = ' ';
   }
   if (opts.size) {
-    if (printf("%c%jd", sep, (intmax_t)finfo.st.st_size) < 0) goto exit; 
+    if (printf("%c%jd\n", sep, (intmax_t)finfo.st.st_size) < 0) goto exit; 
     sep = ' ';
   }
   if (sep != '[')
     if (printf("] ") < 0) goto exit;
-  if (printf("%s", finfo.path) < 0) goto exit;
+  if (printf("%s\n", finfo.path) < 0) goto exit;
   if (S_ISLNK(finfo.st.st_mode)) {
     char rp[PATH_MAX + 1] = {0};
     if (readlinkat(cur_dir, finfo.path, rp, PATH_MAX) == -1) goto exit;
-    if (printf(" -> %s", rp) < 0) goto exit;
+    if (printf(" -> %s\n", rp) < 0) goto exit;
   }
 exit:
   return errno ? -1 : 0;

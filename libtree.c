@@ -104,7 +104,7 @@ if (S_ISDIR(finfo.st.st_mode)) {
 }
   /* TODO: print indentation */
 for (int i = 0; i < depth; i++) {
-    printf("  ");
+    printf(" ");
 }
     printf("%s\n", finfo.path);
   /* TODO: print the path info */

@@ -19,7 +19,7 @@
 #include <unistd.h>
 
 #include "libtree.h"
-
+#ifdef LIBTREE_TEST
 int main(int argc, char *argv[]) {
     struct tree_options opts;
     opts.dirsonly = 0;
@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
     }
     return 0; 
 }
-
+#endif
 /* Convenient macro to get the length of an array (number of elements) */
 #define arrlen(a) (sizeof(a) / sizeof *(a))
 

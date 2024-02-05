@@ -19,23 +19,6 @@
 #include <unistd.h>
 
 #include "libtree.h"
-#ifdef LIBTREE_TEST
-int main(int argc, char *argv[]) {
-    struct tree_options opts;
-    opts.dirsonly = 0;
-    
-    if (argc != 2) {
-	fprintf(stderr, "Usage: %s <directory_path>\n", argv[0]);
-	return 1;
-    }
-    
-    if (tree_print(argv[1], opts) == -1) {
-	perror("tree_print");
-	return 1; 
-    }
-    return 0; 
-}
-#endif
 /* Convenient macro to get the length of an array (number of elements) */
 #define arrlen(a) (sizeof(a) / sizeof *(a))
 
